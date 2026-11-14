@@ -1,5 +1,5 @@
 /* Clube do Fausto service worker */
-const VERSION = "cdf-599adfd93f";
+const VERSION = "cdf-f662ad68e6";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png", "./icons/favicon.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL))); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== VERSION).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
@@ -13,6 +13,11 @@ self.addEventListener("fetch", (e) => {
       const net = fetch(req).then((res) => { if (res.ok) c.put(req, res.clone()); return res; }).catch(() => hit || c.match("./index.html"));
       return hit || net;
     })));
+    return;
+  }
+  // author portraits (Wikipedia): keep a copy so they show offline
+  if (/upload\.wikimedia\.org/.test(url.host)) {
+    e.respondWith(caches.open("cdf-portraits").then((c) => c.match(req).then((hit) => hit || fetch(req).then((res) => { if (res.ok || res.type === "opaque") c.put(req, res.clone()); return res; }))));
     return;
   }
   // book covers: keep a copy so they show offline
