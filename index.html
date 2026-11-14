@@ -9258,6 +9258,7 @@ window.CLUBE_DATA = {
     if (stored) SYNC.club = stored;
     else if (APP) { SYNC.club = ""; sync.on = false; }
   })();
+  window.addEventListener("hashchange", function () { var m = (location.hash || "").match(/join=([A-Za-z0-9_-]{24,})/); if (m) { try { localStorage.setItem(CLUB_KEY, m[1]); } catch (e) {} location.replace(location.pathname + "#today"); location.reload(); } });
   function hasClub() { return !!SYNC.club && SYNC.club.length >= 24; }
   function me() { var p = profile(); return p === "shared" ? null : p; }
   function other(o) { return o === "ines" ? "vitoria" : "ines"; }
