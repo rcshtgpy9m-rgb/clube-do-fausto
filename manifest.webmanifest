@@ -1,0 +1,16 @@
+{
+  "name": "Clube do Fausto",
+  "short_name": "Fausto",
+  "description": "Inês and Vitória's book club: twelve books, twelve countries, one very important cat.",
+  "start_url": "./#today",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E9DFC9",
+  "theme_color": "#263D35",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
